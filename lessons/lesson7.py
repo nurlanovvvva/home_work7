@@ -17,20 +17,20 @@ view INTEGER,
 bitday DATE
 )''')
 
-# CREATE - INSERT INTO
-# cursor.execute('''INSERT INTO user VALUES ("beka",49,5,'2003-87-99')''')
 
+def delete_rows(condition):
+    cursor.execute(f"DELETE FROM user WHERE {condition}")
+    db.commit()
 # UPDATE-UPDATE
 cursor.execute('''UPDATE user SET age=99 WHERE rowid!=2 ''')
 
+delete_rows("rowid % 2 = 0")
 
-
-# REED-SELECT,fech
-cursor.execute('''SELECT rowid,* FROM user''')
-a=cursor.fetchall()
-for i in a:
-    print(i)
-
+cursor.execute("SELECT rowid, * FROM user")
+rows = cursor.fetchall()
+print("После удаления:")
+for row in rows:
+    print(row)
 
 db.commit()
 db.close()
